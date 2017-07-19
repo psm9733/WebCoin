@@ -1,0 +1,190 @@
+#pageone {
+	overflow:scroll; 
+	-webkit-overflow-scrolling:touch;
+}
+#navigation {
+	position:absolute;
+	top:30px;
+	left:0px;
+	width: 1050px;
+	height: 70px;
+	background-color: gray;
+	padding: 5px; 
+}
+#homepage_icon{
+	position: absolute;
+	top: 0px;
+	left: 10px;
+	padding:5px;
+}
+#dashboard{
+	position: absolute;
+	width: 1044px;
+	height: 500px;
+	top: 200px;
+}
+#comment{
+	height: 50px;
+}
+
+thead th:nth-child(1) {
+	width:10%;
+}
+
+thead th:nth-child(2) {
+	width: 20%;
+}
+
+thead th:nth-child(3) {
+	width: 10%;
+}
+
+thead th:nth-child(4) {
+	width: 10%;
+}
+
+thead th:nth-child(5) {
+	width: 10%;
+}
+
+thead th:nth-child(6) {
+	width: 10%;
+}
+
+thead th:nth-child(7) {
+	width: 10%;
+}
+
+thead th:nth-child(8) {
+	width: 10%;
+}
+
+
+#one {
+	color:red;
+}
+#one td{
+	cursor: pointer;	
+}
+#two {
+	color:OrangeRed;
+}
+#two td{
+	cursor: pointer;	
+}
+#three {
+	color: Orange;
+}
+#three td{
+	cursor: pointer;	
+}
+#four {
+	color: Gold;
+}
+#four td{
+	cursor: pointer;	
+}
+#five {
+	color: green;
+}
+#five td{
+	cursor: pointer;	
+}
+#six {
+	color: blue;
+}
+#six td{
+	cursor: pointer;	
+}
+#seven {
+	color:darkblue;
+}
+#seven td{
+	cursor: pointer;	
+}
+#eight {
+	color:darkviolet;
+}
+#eight td{
+	cursor: pointer;	
+}
+#nine {
+	color:Indigo;
+}
+#nine td{
+	cursor: pointer;	
+}
+#ten {
+	color:dark;
+}
+#ten td{
+	cursor: pointer;	
+}
+tbody td{
+	font-weight: bold;
+	text-align: center;
+}
+
+
+.custom-btn:before{
+	content:'';
+	height:100%;
+	display:inline-block;
+	vertical-align:middle;
+}
+.custom-btn{
+	top:20px;
+	background:gray;
+	color:#fff;
+	border:none;
+	position:absolute;
+	-webkit-transform: translateZ(0);
+	height:60px;
+	font-size:1.6em;
+	cursor:pointer;
+	transition:800ms ease all;
+	outline:none;
+	text-align:left;
+}
+.exchange{
+	left:100px;
+}
+
+.transactional_information{
+	left:300px;
+}
+
+.coin{
+	left:540px;
+}
+
+.chart{
+	left:730px;
+}
+
+.chat{
+	left:930px;
+}
+.custom-btn:hover{
+	color: yellow;
+}
+.custom-btn:before,.custom-btn:after{
+	content: '';
+	position: absolute;
+	top: 0;
+	right: 0;
+	height: 2px;
+	width: 0;
+	background: gray;
+	transition: 400ms ease all;
+}
+.custom-btn:after{
+	right:inherit;
+	top:inherit;
+	left:0;
+	bottom:0;
+}
+.custom-btn:hover:before,.custom-btn:hover:after{
+	width:100%;
+	transition:800ms ease all;
+}
