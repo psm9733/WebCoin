@@ -6,7 +6,7 @@
 	position:absolute;
 	top:30px;
 	left:0px;
-	width: 1050px;
+	width: 1200px;
 	height: 70px;
 	background-color: gray;
 	padding: 5px; 
@@ -19,7 +19,7 @@
 }
 #dashboard{
 	position: absolute;
-	width: 1044px;
+	width: 1194px;
 	height: 500px;
 	top: 200px;
 }
@@ -32,96 +32,95 @@ thead th:nth-child(1) {
 }
 
 thead th:nth-child(2) {
-	width: 20%;
+	width: 18%;
 }
 
 thead th:nth-child(3) {
-	width: 10%;
+	width: 12%;
 }
 
 thead th:nth-child(4) {
-	width: 10%;
+	width: 12%;
 }
 
 thead th:nth-child(5) {
-	width: 10%;
+	width: 12%;
 }
 
 thead th:nth-child(6) {
-	width: 10%;
+	width: 12%;
 }
 
 thead th:nth-child(7) {
-	width: 10%;
+	width: 12%;
 }
 
 thead th:nth-child(8) {
-	width: 10%;
+	width: 12%;
 }
 
 
 #one {
 	color:red;
 }
-#one td{
+#linkone {
 	cursor: pointer;	
 }
 #two {
 	color:OrangeRed;
 }
-#two td{
+#linktwo {
 	cursor: pointer;	
 }
 #three {
 	color: Orange;
 }
-#three td{
+#linkthree {
 	cursor: pointer;	
 }
 #four {
 	color: Gold;
 }
-#four td{
+#linkfour {
 	cursor: pointer;	
 }
 #five {
 	color: green;
 }
-#five td{
+#linkfive {
 	cursor: pointer;	
 }
 #six {
 	color: blue;
 }
-#six td{
+#linksix {
 	cursor: pointer;	
 }
 #seven {
 	color:darkblue;
 }
-#seven td{
+#linkseven {
 	cursor: pointer;	
 }
 #eight {
 	color:darkviolet;
 }
-#eight td{
+#linkeight {
 	cursor: pointer;	
 }
 #nine {
 	color:Indigo;
 }
-#nine td{
+#linknine {
 	cursor: pointer;	
 }
 #ten {
 	color:dark;
 }
-#ten td{
+#linkten {
 	cursor: pointer;	
 }
 tbody td{
-	font-weight: bold;
 	text-align: center;
 }
 
@@ -147,23 +146,23 @@ tbody td{
 	text-align:left;
 }
 .exchange{
-	left:100px;
+	left:140px;
 }
 
 .transactional_information{
-	left:300px;
+	left:340px;
 }
 
 .coin{
-	left:540px;
+	left:580px;
 }
 
 .chart{
-	left:730px;
+	left:770px;
 }
 
 .chat{
-	left:930px;
+	left:970px;
 }
 .custom-btn:hover{
 	color: yellow;
