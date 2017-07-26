@@ -120,6 +120,9 @@ thead th:nth-child(8) {
 #linkten {
 	cursor: pointer;	
 }
+tbody tr{
+	height: 40px;
+}
 tbody td{
 	text-align: center;
 }
