@@ -38,9 +38,9 @@ $(function() {
 		  //dataType: "json", //no need. if you use crossOrigin, the dataType will be override with "json"
 		  //charset: 'ISO-8859-1', //use it to define the charset of the target url
 		  context: {},
-		  success: function(data) {
-			  //alert(data);
-			  $( '#test' ).html(data);
+		  success: function(d) {
+			var test = d;
+				$( '#test' ).html(test);
 			}
 		})
 		.done(function( data, textStatus, jqXHR ) {

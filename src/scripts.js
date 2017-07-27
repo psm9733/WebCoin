@@ -94,12 +94,12 @@ function DashboardEvent(delay1, delay2){
 		Poloniex_LTC = Poloniex_getprice("Poloniex_LTC", 'https://poloniex.com/public?command=returnTicker', 'USDT_LTC');
 		Poloniex_DASH = Poloniex_getprice("Poloniex_DASH", 'https://poloniex.com/public?command=returnTicker', 'USDT_DASH');
 	
-		// Bithumb_BTC = bithumb_getprice("Bithumb_BTC", 'https://api.bithumb.com/public/ticker?currency=btc');
-		// Bithumb_ETH = bithumb_getprice("Bithumb_ETH", 'https://api.bithumb.com/public/ticker?currency=eth');
-		// Bithumb_XRP = bithumb_getprice("Bithumb_XRP", 'https://api.bithumb.com/public/ticker?currency=xrp');
-		// Bithumb_ETC = bithumb_getprice("Bithumb_ETC", 'https://api.bithumb.com/public/ticker?currency=etc');
-		// Bithumb_LTC = bithumb_getprice("Bithumb_LTC", 'https://api.bithumb.com/public/ticker?currency=ltc');
-		// Bithumb_DASH = bithumb_getprice("Bithumb_DASH", 'https://api.bithumb.com/public/ticker?currency=dash');
+		Bithumb_BTC = bithumb_getprice("Bithumb_BTC", 'https://api.bithumb.com/public/ticker?currency=BTC');
+		Bithumb_ETH = bithumb_getprice("Bithumb_ETH", 'https://api.bithumb.com/public/ticker?currency=ETH');
+		Bithumb_XRP = bithumb_getprice("Bithumb_XRP", 'https://api.bithumb.com/public/ticker?currency=XRP');
+		Bithumb_ETC = bithumb_getprice("Bithumb_ETC", 'https://api.bithumb.com/public/ticker?currency=ETC');
+		Bithumb_LTC = bithumb_getprice("Bithumb_LTC", 'https://api.bithumb.com/public/ticker?currency=LTC');
+		Bithumb_DASH = bithumb_getprice("Bithumb_DASH", 'https://api.bithumb.com/public/ticker?currency=DASH');
 		
 		Coinone_BTC = Coinone_getprice("Coinone_BTC", 'https://api.coinone.co.kr/ticker?currency=btc');
 		Coinone_ETH = Coinone_getprice("Coinone_ETH", 'https://api.coinone.co.kr/ticker?currency=eth');
@@ -172,6 +172,7 @@ function Poloniex_getprice(id, url, cointype){
 }
 
 function bithumb_getprice(id, url){
+	var data = { };
 	var id = id;
 	var url = url;
 	var price = 0.0;
@@ -179,14 +180,16 @@ function bithumb_getprice(id, url){
 		setDashboardEvent_price(id, price);
 		return 0;
 	}
+	
 	$.ajax({
-		crossOrigin: true,
-		origin:"https://api.bithumb.com/",
+		crossOrigin: true, 
 		url:url,
-		dataType:'json',
-		type: 'GET',
+		dataType:'jsonp',
+		data: data,
 		success:function(data){
-			price = data["data"]["closing_price"];
+			console.log("data = "+ data);
+			var json = $.parseJSON(data);
+			price = json["data"]["closing_price"];
 			setDashboardEvent_KRW_price(id, price);
 			return price;
 		},
@@ -201,15 +204,17 @@ function Coinone_getprice(id, url){
 	var id = id;
 	var url = url;
 	var price = 0.0;
+	var data = { };
 	if(url == '' || url == null || url == undefined || url == 0 || url == NaN){
 		setDashboardEvent_KRW_price(id, price);
 		return 0;
 	}
+	
 	$.ajax({
 		origin:"https://api.coinone.co.kr/",
 		url:url,
 		dataType:'json',
-		type: 'GET',
+		data: data,
 		success:function(data){
 			price = data["last"];
 			setDashboardEvent_KRW_price(id, price);	
@@ -226,19 +231,22 @@ function Korbit_getprice(id, url){
 	var id = id;
 	var url = url;
 	var price = 0.0;
+	var data = { };
 	if(url == '' || url == null || url == undefined || url == 0 || url == NaN){
 		setDashboardEvent_KRW_price(id, price);
 		return 0;
 	}
+	
 	$.ajax({
-		origin:"https://apidocs.korbit.co.kr/",
 		crossOrigin: true,
 		url:url,
-		dataType:'json',
-		type: 'GET',
+		dataType:'jsonp ',
+		data: data,
 		success:function(data){
-			price = data["last"];
-			setDashboardEvent_KRW_price(id, price);	
+			var json = $.parseJSON(data);
+			price = json["last"];
+			setDashboardEvent_KRW_price(id, price);
+			return price;
 		},
 		error: function(xhr) {
 			setDashboardEvent_SC_status_Check(id);
@@ -252,6 +260,11 @@ function numberWithCommas(x) {
     return x.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
+// function XdomainSetting(){
+	// $.ajaxPrefilter('json', function(options, orig, jqXHR) {
+		// return 'json';
+	// });
+// }
 // function comma(num){
     // var len, point, str; 
     // num = num + ""; 
@@ -272,5 +285,5 @@ $(document).ready(function(){
 	LogoEvent();
 	MenuEvent();
 	ExchangeEvent();
-	DashboardEvent(1000, 4000);		//1초
+	DashboardEvent(1000, 1000);		//1초
 });
