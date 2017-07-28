@@ -24,7 +24,7 @@ class Exchange():
 class Coin(Exchange):
     coin_name = ""
     def __init__(self, ex_name, address, coin_name):
-        super().__init__(ex_name, address)
+        super(Coin, self).__init__(ex_name, address)
         self.coin_name = coin_name
 
     def get_coinname(self):

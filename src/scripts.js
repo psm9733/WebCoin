@@ -73,9 +73,8 @@ function ExchangeEvent(){
 	});
 }
 
-function DashboardEvent(delay1, delay2){
-	var delay1 = delay1;
-	var	delay2 = delay2;
+function DashboardEvent(delay){
+	var delay = delay;
 	var Poloniex_BTC = Poloniex_ETH = Poloniex_XRP = Poloniex_ETC = Poloniex_LTC = Poloniex_DASH = 0.0;
 	var Bithumb_BTC = Bithumb_ETH = Bithumb_xrp = Bithumb_ETC = Bithumb_LTC = Bithumb_DASH = 0.0;
 	var coinone_BTC = coinone_ETH = coinone_xrp = coinone_ETC = coinone_LTC = coinone_DASH = 0.0;
@@ -105,17 +104,38 @@ function DashboardEvent(delay1, delay2){
 		Coinone_ETH = Coinone_getprice("Coinone_ETH", 'https://api.coinone.co.kr/ticker?currency=eth');
 		Coinone_XRP = Coinone_getprice("Coinone_XRP", 'https://api.coinone.co.kr/ticker?currency=xrp');
 		Coinone_ETC = Coinone_getprice("Coinone_ETC", 'https://api.coinone.co.kr/ticker?currency=etc');
-		Coinone_LTC = Coinone_getprice("Coinone_LTC");
-		Coinone_DASH = Coinone_getprice("Coinone_DASH");
-	}, delay1);
-	var loopTimer2 = window.setInterval(function(){
+		Coinone_LTC = Coinone_getprice("Coinone_LTC", '');
+		Coinone_DASH = Coinone_getprice("Coinone_DASH", '');
+		
+		OKCoin_BTC = OKCoin_getprice("OKCoin_BTC", 'https://www.okcoin.com/api/v1/ticker.do?symbol=btc_usd');
+		OKCoin_ETH = OKCoin_getprice("OKCoin_ETH", 'https://www.okcoin.com/api/v1/ticker.do?symbol=eth_usd');
+		OKCoin_XRP = OKCoin_getprice("OKCoin_XRP", '');
+		OKCoin_ETC = OKCoin_getprice("OKCoin_ETC", 'https://www.okcoin.com/api/v1/ticker.do?symbol=etc_usd');
+		OKCoin_LTC = OKCoin_getprice("OKCoin_LTC", 'https://www.okcoin.com/api/v1/ticker.do?symbol=ltc_usd');
+		OKCoin_DASH = OKCoin_getprice("OKCoin_DASH", '');
+		
+		bitFlyer_BTC = bitFlyer_getprice("bitFlyer_BTC", 'https://api.bitflyer.jp/v1/ticker?productcode=btc_jpy');
+		bitFlyer_ETH = bitFlyer_getprice("bitFlyer_ETH", 'https://api.bitflyer.jp/v1/ticker?productcode=eth_jpy');
+		bitFlyer_XRP = bitFlyer_getprice("bitFlyer_XRP", 'https://api.bitflyer.jp/v1/ticker?productcode=xrp_jpy');
+		bitFlyer_ETC = bitFlyer_getprice("bitFlyer_ETC", 'https://api.bitflyer.jp/v1/ticker?productcode=etc_jpy');
+		bitFlyer_LTC = bitFlyer_getprice("bitFlyer_LTC", 'https://api.bitflyer.jp/v1/ticker?productcode=ltc_jpy');
+		bitFlyer_DASH = bitFlyer_getprice("bitFlyer_DASH", 'https://api.bitflyer.jp/v1/ticker?productcode=dash_jpy');
+		
+		Bitfinex_BTC = Bitfinex_getprice("Bitfinex_BTC", 'https://api.bitfinex.com/v1/pubticker/BTCUSD');
+		Bitfinex_ETH = Bitfinex_getprice("Bitfinex_ETH", 'https://api.bitfinex.com/v1/pubticker/ETHUSD');
+		Bitfinex_XRP = Bitfinex_getprice("Bitfinex_XRP", '');
+		Bitfinex_ETC = Bitfinex_getprice("Bitfinex_ETC", 'https://api.bitfinex.com/v1/pubticker/ETCUSD');
+		Bitfinex_LTC = Bitfinex_getprice("Bitfinex_LTC", 'https://api.bitfinex.com/v1/pubticker/LTCUSD');
+		Bitfinex_DASH = Bitfinex_getprice("Bitfinex_DASH", '');
+		
 		Korbit_BTC = Korbit_getprice("Korbit_BTC", 'https://api.korbit.co.kr/v1/ticker?currency_pair=btc_krw');
 		Korbit_ETH = Korbit_getprice("Korbit_ETH", 'https://api.korbit.co.kr/v1/ticker?currency_pair=eth_krw');
 		Korbit_XRP = Korbit_getprice("Korbit_XRP", 'https://api.korbit.co.kr/v1/ticker?currency_pair=xrp_krw');
 		Korbit_ETC = Korbit_getprice("Korbit_ETC", 'https://api.korbit.co.kr/v1/ticker?currency_pair=etc_krw');
-		Korbit_LTC = Korbit_getprice("Korbit_LTC");
-		Korbit_DASH = Korbit_getprice("Korbit_DASH");
-	}, delay2);
+		Korbit_LTC = Korbit_getprice("Korbit_LTC", '');
+		Korbit_DASH = Korbit_getprice("Korbit_DASH", '');
+		
+	}, delay);
 }
 
 function setDashboardEvent_SC_status_Check(id){
@@ -138,6 +158,14 @@ function setDashboardEvent_USDT_price(id, value){
 	$("#"+id).html(numberWithCommas("$" + value.toFixed(3)));
 }
 
+function setDashboardEvent_JPY_price(id, value){
+	if(value == '' || value == null || value == undefined || value == 0 || value == NaN){
+		$("#"+id).html("X");
+		return;
+	}
+	$("#"+id).html(numberWithCommas("¥" + value.toFixed(3)));
+}
+
 function setDashboardEvent_str(id, value){
 	if(value == '' || value == null || value == undefined || value == 0 || value == NaN){
 		$("#"+id).html("X");
@@ -151,7 +179,7 @@ function Poloniex_getprice(id, url, cointype){
 	var url = url;
 	var price = 0.0;
 	if(url == '' || url == null || url == undefined || url == 0 || url == NaN){
-		setDashboardEvent_price(id, price);
+		setDashboardEvent_USDT_price(id, price);
 		return 0;
 	}
 	$.ajax({
@@ -162,13 +190,14 @@ function Poloniex_getprice(id, url, cointype){
 		success:function(data){
 			price = parseFloat(data[cointype]["last"]);
 			setDashboardEvent_USDT_price(id, price);
+			return price;
 		},
 		error: function(xhr) {
 			setDashboardEvent_SC_status_Check(id);
 			console.log('api실패 - ', xhr);
+			return null;
 		}
 	});
-	return price;
 }
 
 function bithumb_getprice(id, url){
@@ -177,7 +206,7 @@ function bithumb_getprice(id, url){
 	var url = url;
 	var price = 0.0;
 	if(url == '' || url == null || url == undefined || url == 0 || url == NaN){
-		setDashboardEvent_price(id, price);
+		setDashboardEvent_KRW_price(id, price);
 		return 0;
 	}
 	
@@ -187,7 +216,6 @@ function bithumb_getprice(id, url){
 		dataType:'jsonp',
 		data: data,
 		success:function(data){
-			console.log("data = "+ data);
 			var json = $.parseJSON(data);
 			price = json["data"]["closing_price"];
 			setDashboardEvent_KRW_price(id, price);
@@ -196,6 +224,7 @@ function bithumb_getprice(id, url){
 		error: function(xhr) {
 			setDashboardEvent_SC_status_Check(id);
 			console.log('api실패 - ', xhr);
+			return null;
 		}
 	});
 }
@@ -218,11 +247,99 @@ function Coinone_getprice(id, url){
 		success:function(data){
 			price = data["last"];
 			setDashboardEvent_KRW_price(id, price);	
+			return price;
 		},
 		error: function(xhr) {
 			setDashboardEvent_SC_status_Check(id);
 			console.log('api실패 - ', xhr);
+			return null;
+		}
+	});
+}
+
+function OKCoin_getprice(id , url){
+	var id = id;
+	var url = url;
+	var price = 0.0;
+	var data = { };
+	if(url == '' || url == null || url == undefined || url == 0 || url == NaN){
+		setDashboardEvent_USDT_price(id, price);
+		return 0;
+	}
+	$.ajax({
+		crossOrigin: true,
+		url:url,
+		dataType:'jsonp',
+		type: 'GET',
+		data: data,
+		success:function(data){
+			var json = $.parseJSON(data);
+			price = parseFloat(json["ticker"]["last"]);
+			setDashboardEvent_USDT_price(id, price);
 			return price;
+		},
+		error: function(xhr) {
+			setDashboardEvent_SC_status_Check(id);
+			console.log('api실패 - ', xhr);
+			return null;
+		}
+	});
+}
+
+function bitFlyer_getprice(id , url){
+	var id = id;
+	var url = url;
+	var price = 0.0;
+	var data = { };
+	if(url == '' || url == null || url == undefined || url == 0 || url == NaN){
+		setDashboardEvent_USDT_price(id, price);
+		return 0;
+	}
+	$.ajax({
+		crossOrigin: true,
+		url:url,
+		dataType:'jsonp',
+		type: 'GET',
+		data: data,
+		success:function(data){
+			var json = $.parseJSON(data);
+			price = parseFloat(json["ltp"]);
+			setDashboardEvent_JPY_price(id, price);
+			return price;
+		},
+		error: function(xhr) {
+			setDashboardEvent_SC_status_Check(id);
+			console.log('api실패 - ', xhr);
+			return null;
+		}
+	});
+}
+
+function Bitfinex_getprice(id, url){
+	var id = id;
+	var url = url;
+	var price = 0.0;
+	var data = { };
+	if(url == '' || url == null || url == undefined || url == 0 || url == NaN){
+		setDashboardEvent_USDT_price(id, price);
+		return 0;
+	}
+	$.ajax({
+		crossOrigin: true,
+		url:url,
+		dataType:'jsonp',
+		type: 'GET',
+		data: data,
+		success:function(data){
+			var json = $.parseJSON(data);
+			price = parseFloat(json["last_price"]);
+			setDashboardEvent_USDT_price(id, price);
+			return price;
+		},
+		error: function(xhr) {
+			setDashboardEvent_SC_status_Check(id);
+			console.log('api실패 - ', xhr);
+			return null;
 		}
 	});
 }
@@ -240,7 +357,8 @@ function Korbit_getprice(id, url){
 	$.ajax({
 		crossOrigin: true,
 		url:url,
-		dataType:'jsonp ',
+		dataType:'jsonp',
+		type: 'GET',
 		data: data,
 		success:function(data){
 			var json = $.parseJSON(data);
@@ -251,7 +369,7 @@ function Korbit_getprice(id, url){
 		error: function(xhr) {
 			setDashboardEvent_SC_status_Check(id);
 			console.log('api실패 - ', xhr);
-			return price;
+			return null;
 		}
 	});
 }
@@ -259,7 +377,7 @@ function Korbit_getprice(id, url){
 function numberWithCommas(x) {
     return x.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
-
+https://api.bitfinex.com/v1/pubticker/Symbol
 // function XdomainSetting(){
 	// $.ajaxPrefilter('json', function(options, orig, jqXHR) {
 		// return 'json';
